@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\Users\UserIndex;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,4 +26,7 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+    Route::get('/users',UserIndex::class)->name('users.index');
 });
+
+
