@@ -18,9 +18,9 @@
                     {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         Create modal
                     </button> --}}
-                    <button class="btn btn-primary btn-sm rounded-0" type="button"
-                    data-bs-toggle="modal" data-bs-target="#exampleModal" data-placement="top" title="Add"><i
-                        class="fa fa-table"></i></button>
+                    <button class="btn btn-primary btn-sm rounded-0" type="button" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal" data-placement="top" title="Add"><i
+                            class="fa fa-table"></i></button>
                     <!-- Search form -->
                     <div style="display: flex">
                         <i class="fas fa-search" aria-hidden="true"></i>
@@ -32,6 +32,11 @@
                     </div>
                 </div>
                 <!-- Grid column -->
+                @if (session()->has('message'))
+                    <div class="alert alert-success">
+                        {{ session('message') }}
+                    </div>
+                @endif
             </div>
             <!-- Grid row -->
             <!--Table-->
@@ -65,14 +70,15 @@
                                 <!-- Call to action buttons -->
                                 <ul class="list-inline m-0">
                                     <li class="list-inline-item">
-                                        <button wire:click="editShowModal({{ $user->id }})" class="btn btn-success btn-sm rounded-0" type="button"
+                                        <button wire:click="editShowModal({{ $user->id }})"
+                                            class="btn btn-success btn-sm rounded-0" type="button"
                                             data-toggle="tooltip" data-placement="top" title="Edit"><i
                                                 class="fa fa-edit"></i></button>
                                     </li>
                                     <li class="list-inline-item">
-                                        <button class="btn btn-danger btn-sm rounded-0" type="button"
-                                            data-toggle="tooltip" data-placement="top" title="Delete"><i
-                                                class="fa fa-trash"></i></button>
+                                        <button wire:click="userDelete({{ $user->id }})"
+                                            class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip"
+                                            data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
                                     </li>
                                 </ul>
 
@@ -128,9 +134,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     @if ($editMode)
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit User</h1>
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit User</h1>
                     @else
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Create new User</h1>
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Create new User</h1>
                     @endif
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -185,26 +191,26 @@
                         @enderror
                         @if (!$editMode)
                             <!-- Password input -->
-                        <div class="form-outline mb-4">
-                            <input type="password" id="form1Example2" class="form-control"
-                                wire:model.defer="password" />
-                            <label class="form-label" for="form1Example2">Password</label>
-                        </div>
-                        @error('password')
-                            <div class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
+                            <div class="form-outline mb-4">
+                                <input type="password" id="form1Example2" class="form-control"
+                                    wire:model.defer="password" />
+                                <label class="form-label" for="form1Example2">Password</label>
                             </div>
-                        @enderror
+                            @error('password')
+                                <div class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                            @enderror
                         @endif
-                        
+
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" wire:click="closeModal">Close</button>
                     @if ($editMode)
-                    <button type="button" class="btn btn-primary" wire:click="update()">Edit</button>
+                        <button type="button" class="btn btn-primary" wire:click="update()">Edit</button>
                     @else
-                    <button type="button" class="btn btn-primary" wire:click="store()">Save</button>
+                        <button type="button" class="btn btn-primary" wire:click="store()">Save</button>
                     @endif
                     <div class="spinner-border text-primary" role="status" wire:loading>
                         <span class="visually-hidden">Loading...</span>

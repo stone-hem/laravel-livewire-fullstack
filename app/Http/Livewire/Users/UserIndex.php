@@ -32,6 +32,7 @@ class UserIndex extends Component
         ]);
         $this->reset();
         $this->dispatchBrowserEvent('closeModal');
+        session()->flash('message','User created successfully');
     }
     //edit
     public function editShowModal($id){
@@ -63,6 +64,13 @@ class UserIndex extends Component
         $user->update($validated);
         $this->reset();
         $this->dispatchBrowserEvent('closeModal');
+        session()->flash('message','User Updated successfully');
+    }
+
+    public function userDelete($id){
+        $user=User::find($id);
+        $user->delete();
+        session()->flash('message','User deleted successfully');
     }
 
     public function closeModal(){
