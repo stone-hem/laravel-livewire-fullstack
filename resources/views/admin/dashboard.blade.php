@@ -117,7 +117,15 @@
     <!--close the model-->
     <script>
         window.addEventListener('closeModal', event => {
-            $(#exampleModal).modal('hide')
+            var myModalEl = document.getElementById('exampleModal');
+            var modal = bootstrap.Modal.getInstance(myModalEl)
+            modal.hide();
+        })
+    </script>
+    <script>
+        window.addEventListener('showModal', event => {
+            var myModal = new bootstrap.Modal(document.getElementById('exampleModal')); 
+            myModal.show();
         })
     </script>
 </body>

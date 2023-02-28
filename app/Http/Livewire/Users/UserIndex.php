@@ -10,6 +10,9 @@ class UserIndex extends Component
 {
     public $search='';
     public $username,$first_name,$last_name,$email,$password;
+    public $userId;
+    public $editMode=false;
+
     protected $rules = [
         'username' => 'required|min:3',
         'first_name' => 'required|min:3',
@@ -17,6 +20,7 @@ class UserIndex extends Component
         'email' => 'required|email',
         'password' => 'required|min:6',
     ];
+
     public function store(){
         $this->validate();
         User::create([
@@ -29,6 +33,43 @@ class UserIndex extends Component
         $this->reset();
         $this->dispatchBrowserEvent('closeModal');
     }
+    //edit
+    public function editShowModal($id){
+        $this->reset();
+        $this->editMode=true;
+        //find user
+        $this->userId=$id;
+        //load user
+        $this->loadUser();
+        //show modal
+        $this->dispatchBrowserEvent('showModal');
+    }
+    public function loadUser(){
+        $user=User::find($this->userId);
+        $this->username=$user->username;
+        $this->first_name=$user->first_name;
+        $this->last_name=$user->last_name;
+        $this->email=$user->email;
+    }
+
+    public function update(){
+        $validated=$this->validate([
+            'username' => 'required|min:3',
+            'first_name' => 'required|min:3',
+            'last_name' => 'required|min:3',
+            'email' => 'required|email',
+        ]);
+        $user=User::find($this->userId);
+        $user->update($validated);
+        $this->reset();
+        $this->dispatchBrowserEvent('closeModal');
+    }
+
+    public function closeModal(){
+        $this->dispatchBrowserEvent('closeModal');
+        $this->reset();
+    }
+
     public function render()
     {
         $users=User::all();

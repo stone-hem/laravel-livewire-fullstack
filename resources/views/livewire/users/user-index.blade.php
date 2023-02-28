@@ -15,9 +15,12 @@
             <div class="row">
                 <!-- Grid column -->
                 <div class="col-md-12" style="display: flex; justify-content:space-between">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         Create modal
-                    </button>
+                    </button> --}}
+                    <button class="btn btn-primary btn-sm rounded-0" type="button"
+                    data-bs-toggle="modal" data-bs-target="#exampleModal" data-placement="top" title="Add"><i
+                        class="fa fa-table"></i></button>
                     <!-- Search form -->
                     <div style="display: flex">
                         <i class="fas fa-search" aria-hidden="true"></i>
@@ -41,7 +44,8 @@
                         <th class="th-lg"><a href="">Last Name</a></th>
                         <th class="th-lg"><a href="">Email</a></th>
                         <th class="th-lg"><a href="">Username</a></th>
-                        <th class="th-lg"><a href="">Username</a></th>
+                        <th class="th-lg"><a href="">Created time</a></th>
+                        <th class="th-lg"><a href="">Updated time</a></th>
                         <th class="th-lg"><a href="">Actions</a></th>
                     </tr>
                 </thead>
@@ -55,17 +59,13 @@
                             <td>{{ $user->last_name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->username }}</td>
-                            <td>Otto</td>
+                            <td>{{ $user->created_at }}</td>
+                            <td>{{ $user->updated_at }}</td>
                             <td>
                                 <!-- Call to action buttons -->
                                 <ul class="list-inline m-0">
                                     <li class="list-inline-item">
-                                        <button class="btn btn-primary btn-sm rounded-0" type="button"
-                                            data-toggle="tooltip" data-placement="top" title="Add"><i
-                                                class="fa fa-table"></i></button>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <button class="btn btn-success btn-sm rounded-0" type="button"
+                                        <button wire:click="editShowModal({{ $user->id }})" class="btn btn-success btn-sm rounded-0" type="button"
                                             data-toggle="tooltip" data-placement="top" title="Edit"><i
                                                 class="fa fa-edit"></i></button>
                                     </li>
@@ -127,7 +127,11 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
+                    @if ($editMode)
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit User</h1>
+                    @else
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Create new User</h1>
+                    @endif
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -179,8 +183,8 @@
                                 <strong>{{ $message }}</strong>
                             </div>
                         @enderror
-
-                        <!-- Password input -->
+                        @if (!$editMode)
+                            <!-- Password input -->
                         <div class="form-outline mb-4">
                             <input type="password" id="form1Example2" class="form-control"
                                 wire:model.defer="password" />
@@ -191,11 +195,17 @@
                                 <strong>{{ $message }}</strong>
                             </div>
                         @enderror
+                        @endif
+                        
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" wire:click="closeModal">Close</button>
+                    @if ($editMode)
+                    <button type="button" class="btn btn-primary" wire:click="update()">Edit</button>
+                    @else
                     <button type="button" class="btn btn-primary" wire:click="store()">Save</button>
+                    @endif
                     <div class="spinner-border text-primary" role="status" wire:loading>
                         <span class="visually-hidden">Loading...</span>
                     </div>
