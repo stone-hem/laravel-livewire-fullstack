@@ -117,14 +117,14 @@
     <!--close the model-->
     <script>
         window.addEventListener('closeModal', event => {
-            var myModalEl = document.getElementById('exampleModal');
+            var myModalEl = document.getElementById("exampleModal");
             var modal = bootstrap.Modal.getInstance(myModalEl)
             modal.hide();
         })
     </script>
     <script>
         window.addEventListener('showModal', event => {
-            var myModal = new bootstrap.Modal(document.getElementById('exampleModal')); 
+            var myModal = new bootstrap.Modal(document.getElementById("exampleModal")); 
             myModal.show();
         })
     </script>

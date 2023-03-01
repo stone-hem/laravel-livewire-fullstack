@@ -54,15 +54,9 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('users.index') }}" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
+                <a href="{{ route('users.index') }}" class="nav-link {{ request()->is('users') ? 'active' : '' }}">
+                  <i class="fa fa-users nav-icon"></i>
                   <p>Users</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Inactive Page</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -82,14 +76,29 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fa fa-tasks"></i>
               <p>
-                Another Link
-                <span class="right badge badge-danger">New</span>
+                System Management
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('countries.index') }}" class="nav-link {{ request()->is('countries') ? 'active' : '' }}">
+                  <i class="fa fa-globe nav-icon"></i>
+                  <p>Countries</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link {{ request()->is('') ? 'active' : '' }}">
+                  <i class="fa fa-globe nav-icon"></i>
+                  <p>States</p>
+                </a>
+              </li>
+             
+            </ul>
           </li>
         </ul>
       </nav>

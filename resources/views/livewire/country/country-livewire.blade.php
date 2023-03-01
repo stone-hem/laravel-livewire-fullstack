@@ -5,7 +5,7 @@
             <div class="row">
                 <!-- Grid column -->
                 <div class="col-md-12">
-                    <h2 class="py-3 text-center font-bold font-up blue-text">Users</h2>
+                    <h2 class="py-3 text-center font-bold font-up blue-text">Countries</h2>
                 </div>
                 <!-- Grid column -->
             </div>
@@ -32,9 +32,9 @@
                     </div>
                 </div>
                 <!-- Grid column -->
-                @if (session()->has('message'))
+                @if (session()->has('country-message'))
                     <div class="alert alert-success">
-                        {{ session('message') }}
+                        {{ session('country-message') }}
                     </div>
                 @endif
             </div>
@@ -45,10 +45,8 @@
                 <thead>
                     <tr>
                         <th scope="row">#</th>
-                        <th class="th-lg"><a href="">First Name</a></th>
-                        <th class="th-lg"><a href="">Last Name</a></th>
-                        <th class="th-lg"><a href="">Email</a></th>
-                        <th class="th-lg"><a href="">Username</a></th>
+                        <th class="th-lg"><a href="">Name</a></th>
+                        <th class="th-lg"><a href="">Country code</a></th>
                         <th class="th-lg"><a href="">Created time</a></th>
                         <th class="th-lg"><a href="">Updated time</a></th>
                         <th class="th-lg"><a href="">Actions</a></th>
@@ -57,26 +55,24 @@
                 <!--Table head-->
                 <!--Table body-->
                 <tbody>
-                    @forelse ($users as $user)
+                    @forelse ($countries as $country)
                         <tr>
-                            <th scope="row">{{ $user->id }}</th>
-                            <td>{{ $user->first_name }}</td>
-                            <td>{{ $user->last_name }}</td>
-                            <td>{{ $user->email }}</td>
-                            <td>{{ $user->username }}</td>
-                            <td>{{ $user->created_at }}</td>
-                            <td>{{ $user->updated_at }}</td>
+                            <th scope="row">{{ $country->id }}</th>
+                            <td>{{ $country->name }}</td>
+                            <td>{{ $country->country_code }}</td>
+                            <td>{{ $country->created_at }}</td>
+                            <td>{{ $country->updated_at }}</td>
                             <td>
                                 <!-- Call to action buttons -->
                                 <ul class="list-inline m-0">
                                     <li class="list-inline-item">
-                                        <button wire:click="editShowModal({{ $user->id }})"
+                                        <button wire:click="editShowModal({{ $country->id }})"
                                             class="btn btn-success btn-sm rounded-0" type="button"
-                                            data-toggle="tooltip" data-bs-target="#userModal" data-placement="top" title="Edit"><i
+                                            data-toggle="tooltip" data-placement="top" title="Edit"><i
                                                 class="fa fa-edit"></i></button>
                                     </li>
                                     <li class="list-inline-item">
-                                        <button wire:click="userDelete({{ $user->id }})"
+                                        <button wire:click="deleteCountry({{ $country->id }})"
                                             class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip"
                                             data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
                                     </li>
@@ -95,7 +91,7 @@
             <!--Bottom Table UI-->
             <div class="d-flex justify-content-center">
                 <!--Pagination -->
-               {{ $users->links('pagination::bootstrap-5') }}
+               {{ $countries->links('pagination::bootstrap-5') }}
                 <!--/Pagination -->
             </div>
             <!--Bottom Table UI-->
@@ -107,9 +103,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     @if ($editMode)
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit User</h1>
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Country</h1>
                     @else
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Create new User</h1>
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Create new Country</h1>
                     @endif
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -118,63 +114,26 @@
                         <!-- name input -->
                         <div class="form-outline mb-4">
                             <input type="text" id="form1Example1" class="form-control"
-                                wire:model.defer="username" />
-                            <label class="form-label" for="form1Example1">Username</label>
+                                wire:model.defer="name" />
+                            <label class="form-label" for="form1Example1">name</label>
                         </div>
-                        @error('username')
+                        @error('name')
                             <div class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </div>
                         @enderror
 
-                        <!-- name input -->
+                        <!-- code input -->
                         <div class="form-outline mb-4">
                             <input type="text" id="form1Example1" class="form-control"
-                                wire:model.defer="first_name" />
-                            <label class="form-label" for="form1Example1">First Name</label>
+                                wire:model.defer="country_code"  />
+                            <label class="form-label" for="form1Example1">Country code</label>
                         </div>
-                        @error('first_last')
+                        @error('country_code')
                             <div class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </div>
                         @enderror
-
-                        <!-- name input -->
-                        <div class="form-outline mb-4">
-                            <input type="text" id="form1Example1" class="form-control"
-                                wire:model.defer="last_name" />
-                            <label class="form-label" for="form1Example1">Last Name</label>
-                        </div>
-                        @error('last_name')
-                            <div class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </div>
-                        @enderror
-
-                        <!-- Email input -->
-                        <div class="form-outline mb-4">
-                            <input type="email" id="form1Example1" class="form-control"
-                                wire:model.defer="email" />
-                            <label class="form-label" for="form1Example1">Email address</label>
-                        </div>
-                        @error('email')
-                            <div class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </div>
-                        @enderror
-                        @if (!$editMode)
-                            <!-- Password input -->
-                            <div class="form-outline mb-4">
-                                <input type="password" id="form1Example2" class="form-control"
-                                    wire:model.defer="password" />
-                                <label class="form-label" for="form1Example2">Password</label>
-                            </div>
-                            @error('password')
-                                <div class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                            @enderror
-                        @endif
 
                     </form>
                 </div>
@@ -193,3 +152,4 @@
         </div>
     </div>
 </div>
+

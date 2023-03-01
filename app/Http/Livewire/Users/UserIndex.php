@@ -5,9 +5,11 @@ namespace App\Http\Livewire\Users;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class UserIndex extends Component
 {
+    use WithPagination;
     public $search='';
     public $username,$first_name,$last_name,$email,$password;
     public $userId;
@@ -31,7 +33,7 @@ class UserIndex extends Component
             'password'=> Hash::make($this->password),
         ]);
         $this->reset();
-        $this->dispatchBrowserEvent('closeModal');
+        $this->dispatchBrowserEvent('closeModal',['modalId'=>'#userModal', 'actionModal'=>'hide']);
         session()->flash('message','User created successfully');
     }
     //edit
@@ -43,7 +45,7 @@ class UserIndex extends Component
         //load user
         $this->loadUser();
         //show modal
-        $this->dispatchBrowserEvent('showModal');
+        $this->dispatchBrowserEvent('showModal',['modalId'=>'#userModal','actionModal'=>'show']);
     }
     public function loadUser(){
         $user=User::find($this->userId);
@@ -63,7 +65,7 @@ class UserIndex extends Component
         $user=User::find($this->userId);
         $user->update($validated);
         $this->reset();
-        $this->dispatchBrowserEvent('closeModal');
+        $this->dispatchBrowserEvent('closeModal',['modalId'=>'#userModal', 'actionModal'=>'hide']);
         session()->flash('message','User Updated successfully');
     }
 
@@ -74,15 +76,15 @@ class UserIndex extends Component
     }
 
     public function closeModal(){
-        $this->dispatchBrowserEvent('closeModal');
+        $this->dispatchBrowserEvent('closeModal',['modalId'=>'#userModal', 'actionModal'=>'hide']);
         $this->reset();
     }
 
     public function render()
     {
-        $users=User::all();
+        $users=User::paginate(5);
         if (strlen($this->search>2)) {
-            $users=User::where('username','like',"%{$this->search}%")->get();
+            $users=User::where('username','like',"%{$this->search}%")->paginate(5);
         }
         return view('livewire.users.user-index',['users'=>$users])
         ->layout('admin.dashboard');

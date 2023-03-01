@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Livewire\Country\CountryLivewire;
 use App\Http\Livewire\Users\UserIndex;
+use App\Http\Livewire\Users\StateIndex;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,7 +28,9 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-    Route::get('/users',UserIndex::class)->name('users.index');
+    Route::any('/users',UserIndex::class)->name('users.index');
+    Route::any('/countries',CountryLivewire::class)->name('countries.index');
+    // Route::get('/states',StateIndex::class);
 });
 
 
