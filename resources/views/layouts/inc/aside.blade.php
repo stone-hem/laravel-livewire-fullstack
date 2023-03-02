@@ -61,7 +61,7 @@
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fal fa-user-tag nav-icon"></i>
                   <p>Inactive Page</p>
                 </a>
               </li>
@@ -85,20 +85,20 @@
               </li>
               <li class="nav-item">
                 <a href="{{ route('states.index') }}" class="nav-link {{ request()->is('states') ? 'active' : '' }}">
-                  <i class="fa fa-globe nav-icon"></i>
+                  <i class="fab fa-usps nav-icon"></i>
                   <p>States</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{{ route('cities.index') }}" class="nav-link {{ request()->is('cities') ? 'active' : '' }}">
-                  <i class="fa fa-globe nav-icon"></i>
+                  <i class="fa fa-city nav-icon"></i>
                   <p>Cities</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{{ route('departments.index') }}" class="nav-link {{ request()->is('departments') ? 'active' : '' }}">
-                  <i class="fa fa-globe nav-icon"></i>
-                  <p>Cities</p>
+                  <i class="fas fa-building nav-icon"></i>
+                  <p>Departments</p>
                 </a>
               </li>
              
