@@ -15,14 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('middle_name')->nullable();
-            $table->string('address');
             $table->foreignId('department_id')->constrained();
             $table->foreignId('country_id')->constrained();
             $table->foreignId('state_id')->constrained();
             $table->foreignId('city_id')->constrained();
-            $table->char('zip_code');
-            $table->date('birth_date')->nullable();
             $table->date('date_hired')->nullable();
             $table->timestamps();
         });

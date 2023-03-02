@@ -44,6 +44,15 @@
                   </p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{{ route('employees.index') }}" class="nav-link {{ request()->is('employees') ? 'active' : '' }}">
+                  <i class="nav-icon fas fa-th"></i>
+                  <p>
+                    Employees
+                    <span class="right badge badge-danger">manage</span>
+                  </p>
+                </a>
+              </li>
           <li class="nav-item menu-open">
             <a href="#" class="nav-link {{ request()->is('users') ? 'active' : '' }}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
