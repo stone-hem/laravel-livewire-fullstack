@@ -5,7 +5,7 @@
             <div class="row">
                 <!-- Grid column -->
                 <div class="col-md-12">
-                    <h2 class="py-3 text-center font-bold font-up blue-text">States</h2>
+                    <h2 class="py-3 text-center font-bold font-up blue-text">Departments</h2>
                 </div>
                 <!-- Grid column -->
             </div>
@@ -15,9 +15,6 @@
             <div class="row">
                 <!-- Grid column -->
                 <div class="col-md-12" style="display: flex; justify-content:space-between">
-                    {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        Create modal
-                    </button> --}}
                     <button class="btn btn-primary btn-sm rounded-0" type="button" data-bs-toggle="modal"
                         data-bs-target="#exampleModal" data-placement="top" title="Add"><i
                             class="fa fa-table"></i></button>
@@ -32,9 +29,9 @@
                     </div>
                 </div>
                 <!-- Grid column -->
-                @if (session()->has('state-message'))
+                @if (session()->has('city-message'))
                     <div class="alert alert-success">
-                        {{ session('state-message') }}
+                        {{ session('city-message') }}
                     </div>
                 @endif
             </div>
@@ -45,8 +42,7 @@
                 <thead>
                     <tr>
                         <th scope="row">#</th>
-                        <th class="th-lg"><a href="">State Name</a></th>
-                        <th class="th-lg"><a href="">Country Name</a></th>
+                        <th class="th-lg"><a href="">Department Name</a></th>
                         <th class="th-lg"><a href="">Created time</a></th>
                         <th class="th-lg"><a href="">Updated time</a></th>
                         <th class="th-lg"><a href="">Actions</a></th>
@@ -55,24 +51,23 @@
                 <!--Table head-->
                 <!--Table body-->
                 <tbody>
-                    @forelse ($states as $state)
+                    @forelse ($departments as $department)
                         <tr>
-                            <th scope="row">{{ $state->id }}</th>
-                            <td>{{ $state->name }}</td>
-                            <td>{{ $state->country->name }}</td>
-                            <td>{{ $state->created_at }}</td>
-                            <td>{{ $state->updated_at }}</td>
+                            <th scope="row">{{ $department->id }}</th>
+                            <td>{{ $department->name }}</td>
+                            <td>{{ $department->created_at }}</td>
+                            <td>{{ $department->updated_at }}</td>
                             <td>
                                 <!-- Call to action buttons -->
                                 <ul class="list-inline m-0">
                                     <li class="list-inline-item">
-                                        <button wire:click="editShowModal({{ $state->id }})"
+                                        <button wire:click="editShowModal({{ $department->id }})"
                                             class="btn btn-success btn-sm rounded-0" type="button"
                                             data-toggle="tooltip" data-placement="top" title="Edit"><i
                                                 class="fa fa-edit"></i></button>
                                     </li>
                                     <li class="list-inline-item">
-                                        <button wire:click="deleteState({{ $state->id }})"
+                                        <button wire:click="deleteDepartment({{ $department->id }})"
                                             class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip"
                                             data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
                                     </li>
@@ -91,7 +86,7 @@
             <!--Bottom Table UI-->
             <div class="d-flex justify-content-center">
                 <!--Pagination -->
-               {{ $states->links('pagination::bootstrap-5') }}
+               {{ $departments->links('pagination::bootstrap-5') }}
                 <!--/Pagination -->
             </div>
             <!--Bottom Table UI-->
@@ -103,9 +98,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     @if ($editMode)
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit State</h1>
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Department</h1>
                     @else
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Create new State</h1>
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Create new Department</h1>
                     @endif
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -118,22 +113,6 @@
                             <label class="form-label" for="form1Example1">name</label>
                         </div>
                         @error('name')
-                            <div class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </div>
-                        @enderror
-
-                        <!-- code input -->
-                        <div class="form-outline mb-4">
-                            <select wire:model.defer="country_id" class="form-select form-select-sm" aria-label=".form-select-sm example">
-                                <option selected>Open this select menu</option>
-                                @foreach ($countries as $country)
-                                <option value="{{ $country->id }}">{{ $country->name }}</option>
-                                @endforeach
-                              </select>
-                            <label class="form-label" for="form1Example1">Country</label>
-                        </div>
-                        @error('country_code')
                             <div class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </div>
@@ -156,4 +135,5 @@
         </div>
     </div>
 </div>
+
 

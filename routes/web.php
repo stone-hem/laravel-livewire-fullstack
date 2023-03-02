@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Livewire\City\CityIndex;
 use App\Http\Livewire\Country\CountryLivewire;
+use App\Http\Livewire\Department\DepartmentIndex;
+use App\Http\Livewire\State\StateIndex;
 use App\Http\Livewire\Users\UserIndex;
-use App\Http\Livewire\Users\StateIndex;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,9 +30,11 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-    Route::any('/users',UserIndex::class)->name('users.index');
-    Route::any('/countries',CountryLivewire::class)->name('countries.index');
-    // Route::get('/states',StateIndex::class);
+    Route::get('/users',UserIndex::class)->name('users.index');
+    Route::get('/countries',CountryLivewire::class)->name('countries.index');
+    Route::get('/states',StateIndex::class)->name('states.index');
+    Route::get('/cities',CityIndex::class)->name('cities.index');
+    Route::get('/departments',DepartmentIndex::class)->name('departments.index');
 });
 
 

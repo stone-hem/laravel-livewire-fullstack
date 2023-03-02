@@ -23,6 +23,7 @@ class CountryLivewire extends Component
     # create ...
     public function store()
     {
+        //Todo realtime validation
         $this->validate();
         Country::create([
             'name' => $this->name,
@@ -52,7 +53,7 @@ class CountryLivewire extends Component
         $this->editMode = true;
         //find country
         $this->countryId = $id;
-        //load user
+        //load country
         $this->loadCountry();
         //show modal
         $this->dispatchBrowserEvent('showModal',['modalId'=>'#countryModal', 'actionModal'=>'hide']);
