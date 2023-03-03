@@ -119,7 +119,7 @@
                 </div>
                 <div class="modal-body">
                     <form>
-                        <!-- name input -->
+                        <!--First name input -->
                         <div class="form-outline mb-4">
                             <input type="text" id="form1Example1" class="form-control"
                                 wire:model.defer="first_name" />
@@ -131,7 +131,7 @@
                             </div>
                         @enderror
 
-                        <!-- name input -->
+                        <!--Last name input -->
                         <div class="form-outline mb-4">
                             <input type="text" id="form1Example1" class="form-control"
                                 wire:model.defer="last_name" />
@@ -144,8 +144,24 @@
                         @enderror
 
 
-                        <!-- code input -->
+                        <!--Dept Option input -->
                         <div class="form-outline mb-4">
+                            <select wire:model.defer="department_id" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                                <option selected>Open this select menu</option>
+                                @foreach (\App\Models\Department::all() as $department)
+                                <option value="{{ $department->id }}">{{ $department->name }}</option>
+                                @endforeach
+                              </select>
+                            <label class="form-label" for="form1Example1">Department</label>
+                        </div>
+                        @error('department_id')
+                            <div class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </div>
+                        @enderror
+
+                         <!--Country Option input -->
+                         <div class="form-outline mb-4">
                             <select wire:model.defer="country_id" class="form-select form-select-sm" aria-label=".form-select-sm example">
                                 <option selected>Open this select menu</option>
                                 @foreach (\App\Models\Country::all() as $country)
@@ -154,11 +170,56 @@
                               </select>
                             <label class="form-label" for="form1Example1">Country</label>
                         </div>
-                        @error('country_code')
+                        @error('country_id')
                             <div class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </div>
                         @enderror
+
+                         <!--State Option input -->
+                         <div class="form-outline mb-4">
+                            <select wire:model.defer="state_id" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                                <option selected>Open this select menu</option>
+                                @foreach (\App\Models\State::all() as $state)
+                                <option value="{{ $state->id }}">{{ $state->name }}</option>
+                                @endforeach
+                              </select>
+                            <label class="form-label" for="form1Example1">State</label>
+                        </div>
+                        @error('state_id')
+                            <div class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </div>
+                        @enderror
+
+                         <!--City Option input -->
+                         <div class="form-outline mb-4">
+                            <select wire:model.defer="state_id" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                                <option selected>Open this select menu</option>
+                                @foreach (\App\Models\City::all() as $city)
+                                <option value="{{ $city->id }}">{{ $city->name }}</option>
+                                @endforeach
+                              </select>
+                            <label class="form-label" for="form1Example1">City</label>
+                        </div>
+                        @error('state_code')
+                            <div class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </div>
+                        @enderror
+
+                         <!--Date hired input -->
+                         <div class="form-outline mb-4">
+                            <input type="date" id="form1Example1" class="form-control"
+                                wire:model.defer="date_hired" />
+                            <label class="form-label" for="form1Example1">Date of Hire</label>
+                        </div>
+                        @error('date_hired')
+                            <div class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </div>
+                        @enderror
+
 
                     </form>
                 </div>

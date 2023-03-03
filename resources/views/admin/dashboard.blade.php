@@ -56,7 +56,7 @@
                         <div class="col-sm-6">
                             <h1 class="m-0">
                                 @if (request()->is('dashboard'))
-                                    dash
+                                    dashboard
                                 @else
                                     other
                                 @endif
