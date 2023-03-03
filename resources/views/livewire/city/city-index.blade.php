@@ -27,7 +27,7 @@
                         <div class="spinner-border text-primary" role="status" wire:loading>
                             <span class="visually-hidden">Loading...</span>
                         </div>
-                        <input wire:model.lazy="search" class="form-control form-control-sm ml-3 w-75" type="text"
+                        <input wire:model="search" class="form-control form-control-sm ml-3 w-75" type="text"
                             placeholder="Search" aria-label="Search">
                     </div>
                 </div>

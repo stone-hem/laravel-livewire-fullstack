@@ -27,7 +27,7 @@
                         <div class="spinner-border text-primary" role="status" wire:loading>
                             <span class="visually-hidden">Loading...</span>
                         </div>
-                        <input wire:model.lazy="search" class="form-control form-control-sm ml-3 w-75" type="text"
+                        <input wire:model="search" class="form-control form-control-sm ml-3 w-75" type="text"
                             placeholder="Search" aria-label="Search">
                     </div>
                 </div>
@@ -63,24 +63,24 @@
                         <tr>
                             <th scope="row">{{ $employee->id }}</th>
                             <td>{{ $employee->first_name }} {{ $employee->last_name }}</td>
-                            <td>{{ $employee->name }}</td>
-                            <td>{{ $employee->name }}</td>
-                            <td>{{ $employee->name }}</td>
-                            <td>{{ $employee->name }}</td>
-                            <td>{{ $employee->name }}</td>
+                            <td>{{ $employee->country->name }}</td>
+                            <td>{{ $employee->state->name }}</td>
+                            <td>{{ $employee->city->name }}</td>
+                            <td>{{ $employee->department->name }}</td>
+                            <td>{{ $employee->date_hired }}</td>
                             <td>{{ $employee->created_at }}</td>
                             <td>{{ $employee->updated_at }}</td>
                             <td>
                                 <!-- Call to action buttons -->
                                 <ul class="list-inline m-0">
                                     <li class="list-inline-item">
-                                        <button wire:click="editShowModal({{ $employee->id }})"
+                                        <button wire:click="edit({{ $employee->id }})"
                                             class="btn btn-success btn-sm rounded-0" type="button"
                                             data-toggle="tooltip" data-placement="top" title="Edit"><i
                                                 class="fa fa-edit"></i></button>
                                     </li>
                                     <li class="list-inline-item">
-                                        <button wire:click="deleteState({{ $employee->id }})"
+                                        <button wire:click="destroy({{ $employee->id }})"
                                             class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip"
                                             data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
                                     </li>
@@ -194,7 +194,7 @@
 
                          <!--City Option input -->
                          <div class="form-outline mb-4">
-                            <select wire:model.defer="state_id" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                            <select wire:model.defer="city_id" class="form-select form-select-sm" aria-label=".form-select-sm example">
                                 <option selected>Open this select menu</option>
                                 @foreach (\App\Models\City::all() as $city)
                                 <option value="{{ $city->id }}">{{ $city->name }}</option>
@@ -202,7 +202,7 @@
                               </select>
                             <label class="form-label" for="form1Example1">City</label>
                         </div>
-                        @error('state_code')
+                        @error('city_id')
                             <div class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </div>
