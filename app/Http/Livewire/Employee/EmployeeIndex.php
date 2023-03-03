@@ -10,6 +10,7 @@ class EmployeeIndex extends Component
 {
     use WithPagination;
     public $search = '';
+    public $filterDepartment=null;
     public $editMode = false;
     public $employeeId;
     public $first_name, $last_name, $department_id, $country_id, $city_id, $state_id, $date_hired;
@@ -49,7 +50,15 @@ class EmployeeIndex extends Component
     {
         $employees = Employee::paginate(5);
         if (strlen($this->search > 2)) {
-            $employees = Employee::where('first_name', 'like', "%{$this->search}%")->paginate(5);
+            if ($this->filterDepartment) {
+                $employees = Employee::where('first_name', 'like', "%{$this->search}%")
+                ->where('department_id',$this->filterDepartment)
+                ->paginate(5);
+            }else{
+                $employees = Employee::where('first_name', 'like', "%{$this->search}%")->paginate(5);
+            }
+        }elseif ($this->filterDepartment) {
+            $employees=Employee::where('department_id',$this->filterDepartment)->paginate(5);
         }
         return view('livewire.employee.employee-index', compact('employees'))->layout('admin.dashboard');
     }

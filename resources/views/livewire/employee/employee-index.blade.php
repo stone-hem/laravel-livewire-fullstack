@@ -23,12 +23,25 @@
                             class="fa fa-table"></i></button>
                     <!-- Search form -->
                     <div style="display: flex">
+
                         <i class="fas fa-search" aria-hidden="true"></i>
                         <div class="spinner-border text-primary" role="status" wire:loading>
                             <span class="visually-hidden">Loading...</span>
                         </div>
                         <input wire:model="search" class="form-control form-control-sm ml-3 w-75" type="text"
                             placeholder="Search" aria-label="Search">
+                            &nbsp;
+                        <!--Dept Filter Option -->
+                        <div class="form-outline mb-2">
+                            <select wire:model="filterDepartment" class="form-select form-select-sm"
+                                aria-label=".form-select-sm example">
+                                <option selected>All/Filter by Department</option>
+                                @foreach (\App\Models\Department::all() as $department)
+                                    <option value="{{ $department->id }}">{{ $department->name }}</option>
+                                @endforeach
+                            </select>
+                            {{-- <label class="form-label" for="form1Example1">Department</label> --}}
+                        </div>
                     </div>
                 </div>
                 <!-- Grid column -->
@@ -99,7 +112,7 @@
             <!--Bottom Table UI-->
             <div class="d-flex justify-content-center">
                 <!--Pagination -->
-               {{ $employees->links('pagination::bootstrap-5') }}
+                {{ $employees->links('pagination::bootstrap-5') }}
                 <!--/Pagination -->
             </div>
             <!--Bottom Table UI-->
@@ -146,12 +159,13 @@
 
                         <!--Dept Option input -->
                         <div class="form-outline mb-4">
-                            <select wire:model.defer="department_id" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                            <select wire:model.defer="department_id" class="form-select form-select-sm"
+                                aria-label=".form-select-sm example">
                                 <option selected>Open this select menu</option>
                                 @foreach (\App\Models\Department::all() as $department)
-                                <option value="{{ $department->id }}">{{ $department->name }}</option>
+                                    <option value="{{ $department->id }}">{{ $department->name }}</option>
                                 @endforeach
-                              </select>
+                            </select>
                             <label class="form-label" for="form1Example1">Department</label>
                         </div>
                         @error('department_id')
@@ -160,14 +174,15 @@
                             </div>
                         @enderror
 
-                         <!--Country Option input -->
-                         <div class="form-outline mb-4">
-                            <select wire:model.defer="country_id" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                        <!--Country Option input -->
+                        <div class="form-outline mb-4">
+                            <select wire:model.defer="country_id" class="form-select form-select-sm"
+                                aria-label=".form-select-sm example">
                                 <option selected>Open this select menu</option>
                                 @foreach (\App\Models\Country::all() as $country)
-                                <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                    <option value="{{ $country->id }}">{{ $country->name }}</option>
                                 @endforeach
-                              </select>
+                            </select>
                             <label class="form-label" for="form1Example1">Country</label>
                         </div>
                         @error('country_id')
@@ -176,14 +191,15 @@
                             </div>
                         @enderror
 
-                         <!--State Option input -->
-                         <div class="form-outline mb-4">
-                            <select wire:model.defer="state_id" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                        <!--State Option input -->
+                        <div class="form-outline mb-4">
+                            <select wire:model.defer="state_id" class="form-select form-select-sm"
+                                aria-label=".form-select-sm example">
                                 <option selected>Open this select menu</option>
                                 @foreach (\App\Models\State::all() as $state)
-                                <option value="{{ $state->id }}">{{ $state->name }}</option>
+                                    <option value="{{ $state->id }}">{{ $state->name }}</option>
                                 @endforeach
-                              </select>
+                            </select>
                             <label class="form-label" for="form1Example1">State</label>
                         </div>
                         @error('state_id')
@@ -192,14 +208,15 @@
                             </div>
                         @enderror
 
-                         <!--City Option input -->
-                         <div class="form-outline mb-4">
-                            <select wire:model.defer="city_id" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                        <!--City Option input -->
+                        <div class="form-outline mb-4">
+                            <select wire:model.defer="city_id" class="form-select form-select-sm"
+                                aria-label=".form-select-sm example">
                                 <option selected>Open this select menu</option>
                                 @foreach (\App\Models\City::all() as $city)
-                                <option value="{{ $city->id }}">{{ $city->name }}</option>
+                                    <option value="{{ $city->id }}">{{ $city->name }}</option>
                                 @endforeach
-                              </select>
+                            </select>
                             <label class="form-label" for="form1Example1">City</label>
                         </div>
                         @error('city_id')
@@ -208,8 +225,8 @@
                             </div>
                         @enderror
 
-                         <!--Date hired input -->
-                         <div class="form-outline mb-4">
+                        <!--Date hired input -->
+                        <div class="form-outline mb-4">
                             <input type="date" id="form1Example1" class="form-control"
                                 wire:model.defer="date_hired" />
                             <label class="form-label" for="form1Example1">Date of Hire</label>
@@ -238,4 +255,3 @@
         </div>
     </div>
 </div>
-
